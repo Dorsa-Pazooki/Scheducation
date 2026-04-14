@@ -24,11 +24,12 @@ public class ReservationService
     public void CreateReservation(int userId, int classroomId, string subject, DateTime reservationTime)
     {
         var reservation = new Reservation(
-            reservationId: new Random().Next(1, 100000),
-            teacherId: userId,
+            reservationId: 0,
+            teacherUserId: userId,
             classroomId: classroomId,
             subject: subject,
             reservationTime: reservationTime,
+            dateRequested: DateTime.Now,
             status: "Pending"
         );
 

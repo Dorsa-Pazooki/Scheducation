@@ -28,10 +28,11 @@
                         <thead class="table-light">
                             <tr>
                                 <th>Reservation Id</th>
-                                <th>Teacher Id</th>
+                                <th>Teacher User Id</th>
                                 <th>Classroom Id</th>
                                 <th>Subject</th>
-                                <th>Time</th>
+                                <th>Reservation Time</th>
+                                <th>Date Requested</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -40,10 +41,11 @@
                         {
                             <tr>
                                 <td>@reservation.ReservationId</td>
-                                <td>@reservation.TeacherId</td>
+                                <td>@reservation.TeacherUserId</td>
                                 <td>@reservation.ClassroomId</td>
                                 <td>@reservation.Subject</td>
                                 <td>@reservation.ReservationTime</td>
+                                <td>@reservation.DateRequested</td>
                                 <td>
                                     <span class="badge bg-warning text-dark">@reservation.Status</span>
                                 </td>

@@ -4,15 +4,21 @@ namespace DAL;
 
 public class ReservationRepository : IReservationRepository
 {
-    private readonly List<Reservation> _reservations = new();
+    private readonly AppDbContext _context;
+
+    public ReservationRepository(AppDbContext context)
+    {
+        _context = context;
+    }
 
     public void AddReservation(Reservation reservation)
     {
-        _reservations.Add(reservation);
+        _context.Reservations.Add(reservation);
+        _context.SaveChanges();
     }
 
     public List<Reservation> GetAllReservations()
     {
-        return new List<Reservation>(_reservations);
+        return _context.Reservations.ToList();
     }
 }
