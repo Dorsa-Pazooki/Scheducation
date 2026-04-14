@@ -1,11 +1,68 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BLL.dll": {}
+        }
+      },
+      "DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.dll": {}
+        }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "BLL/1.0.0": {
+      "type": "project",
+      "path": "../BLL/BLL.csproj",
+      "msbuildProject": "../BLL/BLL.csproj"
+    },
+    "DAL/1.0.0": {
+      "type": "project",
+      "path": "../DAL/DAL.csproj",
+      "msbuildProject": "../DAL/DAL.csproj"
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "BLL >= 1.0.0",
+      "DAL >= 1.0.0",
+      "Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/dorsapazoki/.nuget/packages/": {}
@@ -31,7 +88,17 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj": {
+              "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj"
+            },
+            "/Users/dorsapazoki/RiderProjects/Scheducation/DAL/DAL.csproj": {
+              "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/DAL/DAL.csproj"
+            },
+            "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj": {
+              "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

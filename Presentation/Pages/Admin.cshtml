@@ -1,0 +1,58 @@
+@page
+@model Presentation.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="mb-1">Admin Dashboard</h1>
+            <p class="text-muted mb-0">Review submitted reservations</p>
+        </div>
+        <a href="/Index" class="btn btn-outline-secondary">Back</a>
+    </div>
+
+    <div class="card shadow-sm rounded-4">
+        <div class="card-body">
+            <h3 class="mb-3">Reservations</h3>
+
+            @if (Model.Reservations.Count == 0)
+            {
+                <div class="alert alert-info mb-0">No reservations yet.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Reservation Id</th>
+                                <th>Teacher Id</th>
+                                <th>Classroom Id</th>
+                                <th>Subject</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var reservation in Model.Reservations)
+                        {
+                            <tr>
+                                <td>@reservation.ReservationId</td>
+                                <td>@reservation.TeacherId</td>
+                                <td>@reservation.ClassroomId</td>
+                                <td>@reservation.Subject</td>
+                                <td>@reservation.ReservationTime</td>
+                                <td>
+                                    <span class="badge bg-warning text-dark">@reservation.Status</span>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
