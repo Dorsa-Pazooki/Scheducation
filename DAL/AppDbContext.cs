@@ -1,4 +1,4 @@
-using Domain;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL;
@@ -11,4 +11,5 @@ public class AppDbContext : DbContext
 
     public DbSet<Reservation> Reservations => Set<Reservation>();
     public DbSet<Classroom> Classrooms => Set<Classroom>();
+    public DbSet<User> Users { get; set; }
 }

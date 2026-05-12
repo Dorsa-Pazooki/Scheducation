@@ -1,7 +1,9 @@
 using DAL;
-using Domain;
+using Domain.Entities;
+using Domain.ViewModels;
 
 namespace BLL;
+
 
 public class ReservationService
 {
@@ -39,5 +41,9 @@ public class ReservationService
     public List<Reservation> GetAllReservations()
     {
         return _reservationRepository.GetAllReservations();
+    }
+    public List<ReservationView> GetReservationViews()
+    {
+        return _reservationRepository.GetReservationViews();
     }
 }

@@ -1,8 +1,8 @@
-namespace Domain;
+namespace Domain.Entities;
 
 public class User
 {
-    public int UserID { get; set; }
+    public int UserId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
@@ -11,7 +11,7 @@ public class User
     
     public User(int userId, string firstName, string lastName, string email)
         {
-        UserID = userId;
+        UserId = userId;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
