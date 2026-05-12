@@ -1,5 +1,5 @@
 using BLL;
-using Domain;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
