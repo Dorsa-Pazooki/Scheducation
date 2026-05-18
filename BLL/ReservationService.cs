@@ -4,7 +4,6 @@ using Domain.ViewModels;
 
 namespace BLL;
 
-
 public class ReservationService
 {
     private readonly IClassroomRepository _classroomRepository;
@@ -23,17 +22,35 @@ public class ReservationService
         return _classroomRepository.GetAvailableClassrooms();
     }
 
-    public void CreateReservation(int userId, int classroomId, string subject, DateTime reservationTime)
+    public void CreateReservation(
+        int userId,
+        int classroomId,
+        string subject,
+        DateTime startDateTime,
+        DateTime endDateTime)
     {
+        if (string.IsNullOrWhiteSpace(subject))
+        {
+            throw new ArgumentException("Please fill in the subject before reserving.");
+        }
+
+        if (startDateTime == default || endDateTime == default)
+        {
+            throw new ArgumentException("Please select a date and time slot before reserving.");
+        }
+
         var reservation = new Reservation(
             reservationId: 0,
             teacherUserId: userId,
             classroomId: classroomId,
             subject: subject,
-            reservationTime: reservationTime,
+            startDateTime: startDateTime,
+            endDateTime: endDateTime,
             dateRequested: DateTime.Now,
             status: "Pending"
         );
+
+        Console.WriteLine("Service reached before repository");
 
         _reservationRepository.AddReservation(reservation);
     }
@@ -42,6 +59,7 @@ public class ReservationService
     {
         return _reservationRepository.GetAllReservations();
     }
+
     public List<ReservationView> GetReservationViews()
     {
         return _reservationRepository.GetReservationViews();

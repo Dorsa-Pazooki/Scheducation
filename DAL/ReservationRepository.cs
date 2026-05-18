@@ -19,9 +19,9 @@ public class ReservationRepository : IReservationRepository
 
         var query = """
             INSERT INTO Reservations
-            (TeacherUserId, ClassroomId, Subject, ReservationTime, DateRequested, Status)
+            (TeacherUserId, ClassroomId, Subject, StartDateTime, EndDateTime, DateRequested, Status)
             VALUES
-            (@TeacherUserId, @ClassroomId, @Subject, @ReservationTime, @DateRequested, @Status)
+            (@TeacherUserId, @ClassroomId, @Subject, @StartDateTime, @EndDateTime, @DateRequested, @Status)
             """;
 
         using var command = new SqlCommand(query, connection);
@@ -29,12 +29,18 @@ public class ReservationRepository : IReservationRepository
         command.Parameters.AddWithValue("@TeacherUserId", reservation.TeacherUserId);
         command.Parameters.AddWithValue("@ClassroomId", reservation.ClassroomId);
         command.Parameters.AddWithValue("@Subject", reservation.Subject);
-        command.Parameters.AddWithValue("@ReservationTime", reservation.ReservationTime);
+        command.Parameters.AddWithValue("@StartDateTime", reservation.StartDateTime);
+        command.Parameters.AddWithValue("@EndDateTime", reservation.EndDateTime);
         command.Parameters.AddWithValue("@DateRequested", reservation.DateRequested);
         command.Parameters.AddWithValue("@Status", reservation.Status);
 
+        Console.WriteLine("AddReservation reached");
+
         connection.Open();
-        command.ExecuteNonQuery();
+
+        var rowsAffected = command.ExecuteNonQuery();
+
+        Console.WriteLine($"Rows inserted: {rowsAffected}");
     }
 
     public List<Reservation> GetAllReservations()
@@ -44,7 +50,7 @@ public class ReservationRepository : IReservationRepository
         using var connection = new SqlConnection(_connectionString);
 
         var query = """
-            SELECT ReservationId, TeacherUserId, ClassroomId, Subject, ReservationTime, DateRequested, Status
+            SELECT ReservationId, TeacherUserId, ClassroomId, Subject, StartDateTime, EndDateTime, DateRequested, Status
             FROM Reservations
             """;
 
@@ -61,9 +67,10 @@ public class ReservationRepository : IReservationRepository
                 teacherUserId: reader.GetInt32(1),
                 classroomId: reader.GetInt32(2),
                 subject: reader.GetString(3),
-                reservationTime: reader.GetDateTime(4),
-                dateRequested: reader.GetDateTime(5),
-                status: reader.GetString(6)
+                startDateTime: reader.GetDateTime(4),
+                endDateTime: reader.GetDateTime(5),
+                dateRequested: reader.GetDateTime(6),
+                status: reader.GetString(7)
             );
 
             reservations.Add(reservation);
@@ -84,12 +91,14 @@ public class ReservationRepository : IReservationRepository
                 u.FirstName + ' ' + u.LastName AS TeacherName,
                 c.RoomNumber,
                 r.Subject,
-                r.ReservationTime,
+                r.StartDateTime,
+                r.EndDateTime,
                 r.DateRequested,
                 r.Status
             FROM Reservations r
             INNER JOIN Users u ON r.TeacherUserId = u.UserId
             INNER JOIN Classrooms c ON r.ClassroomId = c.ClassroomId
+            ORDER BY r.DateRequested DESC
             """;
 
         using var command = new SqlCommand(query, connection);
@@ -106,9 +115,10 @@ public class ReservationRepository : IReservationRepository
                 TeacherName = reader.GetString(1),
                 RoomNumber = reader.GetInt32(2),
                 Subject = reader.GetString(3),
-                ReservationTime = reader.GetDateTime(4),
-                DateRequested = reader.GetDateTime(5),
-                Status = reader.GetString(6)
+                StartDateTime = reader.GetDateTime(4),
+                EndDateTime = reader.GetDateTime(5),
+                DateRequested = reader.GetDateTime(6),
+                Status = reader.GetString(7)
             };
 
             reservationViews.Add(reservationView);
