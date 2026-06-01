@@ -9,6 +9,10 @@ public class Reservation
     public DateTime ReservationTime { get; private set; }
     public DateTime DateRequested { get; private set; }
     public string Status { get; private set; } = "";
+    
+    public DateTime StartDateTime { get; private set; }
+    
+    public DateTime EndDateTime { get; private set; }
 
     private Reservation() { }
 
@@ -17,7 +21,8 @@ public class Reservation
         int teacherUserId,
         int classroomId,
         string subject,
-        DateTime reservationTime,
+        DateTime startDateTime,
+        DateTime endDateTime,
         DateTime dateRequested,
         string status)
     {
@@ -25,7 +30,8 @@ public class Reservation
         TeacherUserId = teacherUserId;
         ClassroomId = classroomId;
         Subject = subject;
-        ReservationTime = reservationTime;
+        StartDateTime = startDateTime;
+        EndDateTime = endDateTime;
         DateRequested = dateRequested;
         Status = status;
     }
