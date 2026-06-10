@@ -14,3 +14,5 @@
 /Users/dorsapazoki/RiderProjects/Scheducation/DAL/obj/Debug/net10.0/refint/DAL.dll
 /Users/dorsapazoki/RiderProjects/Scheducation/DAL/obj/Debug/net10.0/DAL.pdb
 /Users/dorsapazoki/RiderProjects/Scheducation/DAL/obj/Debug/net10.0/ref/DAL.dll
+/Users/dorsapazoki/RiderProjects/Scheducation/DAL/bin/Debug/net10.0/BLL.dll
+/Users/dorsapazoki/RiderProjects/Scheducation/DAL/bin/Debug/net10.0/BLL.pdb

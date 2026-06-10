@@ -1,4 +1,4 @@
-using DAL;
+using BLL.Interfaces;
 using Domain.Entities;
 using Domain.ViewModels;
 
@@ -50,8 +50,6 @@ public class ReservationService
             status: "Pending"
         );
 
-        Console.WriteLine("Service reached before repository");
-
         _reservationRepository.AddReservation(reservation);
     }
 
@@ -63,5 +61,15 @@ public class ReservationService
     public List<ReservationView> GetReservationViews()
     {
         return _reservationRepository.GetReservationViews();
+    }
+
+    public List<ReservationView> GetTeacherReservations(int teacherUserId, string? status)
+    {
+        return _reservationRepository.GetTeacherReservations(teacherUserId, status);
+    }
+
+    public List<ReservationView> GetAllReservationsByStatus(string? status)
+    {
+        return _reservationRepository.GetAllReservationsByStatus(status);
     }
 }

@@ -683,6 +683,19 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
+      "BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BLL.dll": {}
+        }
+      },
       "Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1677,6 +1690,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "BLL/1.0.0": {
+      "type": "project",
+      "path": "../BLL/BLL.csproj",
+      "msbuildProject": "../BLL/BLL.csproj"
+    },
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
@@ -1685,6 +1703,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "BLL >= 1.0.0",
       "Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 10.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 10.0.5"
@@ -1715,6 +1734,9 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
+            "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj": {
+              "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj"
+            },
             "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj": {
               "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj"
             }

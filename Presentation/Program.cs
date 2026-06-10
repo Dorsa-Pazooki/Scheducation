@@ -1,6 +1,6 @@
 using BLL;
 using DAL;
-using Microsoft.EntityFrameworkCore;
+using BLL.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +17,7 @@ builder.Services.AddScoped<IReservationRepository>(
 );
 
 builder.Services.AddScoped<ReservationService>();
+builder.Services.AddScoped<ReservationApprovalService>();
 
 
 var app = builder.Build();

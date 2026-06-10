@@ -6,9 +6,10 @@
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
+        
         <div>
             <h1 class="mb-1">Admin Dashboard</h1>
-            <p class="text-muted mb-0">Review submitted reservations</p>
+            <a href="/AdminSchedule" class="btn btn-outline-primary">All Schedules</a>
         </div>
         <a href="/Index" class="btn btn-outline-secondary">Back</a>
     </div>
@@ -35,6 +36,7 @@
                                 <th>End Time</th>
                                 <th>Date Requested</th>
                                 <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +52,27 @@
                                 <td>@reservation.DateRequested</td>
                                 <td>
                                     <span class="badge bg-warning text-dark">@reservation.Status</span>
+                                </td>
+                                <td>
+                                    <form method="post" asp-page-handler="Approve" class="d-inline">
+                                        <input type="hidden"
+                                               name="reservationId"
+                                               value="@reservation.ReservationId" />
+                                        <button type="submit"
+                                                class="btn btn-success btn-sm">
+                                            Approve
+                                        </button>
+                                    </form>
+
+                                    <form method="post" asp-page-handler="Reject" class="d-inline">
+                                        <input type="hidden"
+                                               name="reservationId"
+                                               value="@reservation.ReservationId" />
+                                        <button type="submit"
+                                                class="btn btn-danger btn-sm">
+                                            Reject
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         }
