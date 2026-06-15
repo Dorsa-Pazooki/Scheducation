@@ -1,5 +1,6 @@
 using BLL.Interfaces;
 using Domain.Entities;
+using Domain.ViewModels;
 
 namespace BLL;
 
@@ -18,10 +19,30 @@ public class EnrollmentService
             enrollmentId: 0,
             studentUserId: studentUserId,
             reservationId: reservationId,
-            dateRequested: DateTime.Now,
+            dateEnrolled: DateTime.Now,
             status: "Pending"
         );
 
         _enrollmentRepository.AddEnrollment(enrollment);
+    }
+
+    public List<EnrollmentView> GetEnrollmentRequests()
+    {
+        return _enrollmentRepository.GetEnrollmentRequests();
+    }
+
+    public List<EnrollmentView> GetStudentEnrollments(int studentUserId, string? status)
+    {
+        return _enrollmentRepository.GetStudentEnrollments(studentUserId, status);
+    }
+
+    public void ApproveEnrollment(int enrollmentId)
+    {
+        _enrollmentRepository.UpdateEnrollmentStatus(enrollmentId, "Approved");
+    }
+
+    public void RejectEnrollment(int enrollmentId)
+    {
+        _enrollmentRepository.UpdateEnrollmentStatus(enrollmentId, "Rejected");
     }
 }

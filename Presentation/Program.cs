@@ -15,7 +15,12 @@ builder.Services.AddScoped<IClassroomRepository>(
 builder.Services.AddScoped<IReservationRepository>(
     provider => new ReservationRepository(connectionString!)
 );
+builder.Services.AddScoped<IEnrollmentRepository>(
+    provider => new EnrollmentRepository(connectionString!)
+);
 
+
+builder.Services.AddScoped<EnrollmentService>();
 builder.Services.AddScoped<ReservationService>();
 builder.Services.AddScoped<ReservationApprovalService>();
 

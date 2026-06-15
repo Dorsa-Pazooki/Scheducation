@@ -8,26 +8,40 @@ public class AdminModel : PageModel
 {
     private readonly ReservationService _reservationService;
     private readonly ReservationApprovalService _approvalService;
+    private readonly EnrollmentService _enrollmentService;
+
+    public List<EnrollmentView> EnrollmentRequests { get; set; } = new();
 
     public List<ReservationView> Reservations { get; set; } = new();
 
     public AdminModel(
         ReservationService reservationService,
-        ReservationApprovalService approvalService)
+        ReservationApprovalService approvalService,
+        EnrollmentService enrollmentService)
     {
         _reservationService = reservationService;
         _approvalService = approvalService;
+        _enrollmentService = enrollmentService;
     }
 
     public void OnGet()
     {
         Reservations = _reservationService.GetReservationViews();
+        EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
     }
 
-    public void OnPostApprove(int reservationId)
+    public void OnPostApproveEnrollment(int enrollmentId)
     {
-        _approvalService.ApproveReservation(reservationId);
+        _enrollmentService.ApproveEnrollment(enrollmentId);
         Reservations = _reservationService.GetReservationViews();
+        EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
+    }
+
+    public void OnPostRejectEnrollment(int enrollmentId)
+    {
+        _enrollmentService.RejectEnrollment(enrollmentId);
+        Reservations = _reservationService.GetReservationViews();
+        EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
     }
 
     public void OnPostReject(int reservationId)
