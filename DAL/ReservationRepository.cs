@@ -1,6 +1,8 @@
 using Domain.Entities;
 using Domain.ViewModels;
 using Microsoft.Data.SqlClient;
+using BLL.Interfaces;
+
 
 namespace DAL;
 
@@ -125,5 +127,121 @@ public class ReservationRepository : IReservationRepository
         }
 
         return reservationViews;
+    }
+    public void UpdateReservationStatus(int reservationId, string status)
+    {
+        using var connection = new SqlConnection(_connectionString);
+
+        var query = """
+                    UPDATE Reservations
+                    SET Status = @Status
+                    WHERE ReservationId = @ReservationId
+                    """;
+
+        using var command = new SqlCommand(query, connection);
+
+        command.Parameters.AddWithValue("@Status", status);
+        command.Parameters.AddWithValue("@ReservationId", reservationId);
+
+        connection.Open();
+        command.ExecuteNonQuery();
+    }
+    public List<ReservationView> GetTeacherReservations(int teacherUserId, string? status)
+    {
+        var reservations = new List<ReservationView>();
+
+        using var connection = new SqlConnection(_connectionString);
+
+        var query = """
+                    SELECT 
+                        r.ReservationId,
+                        u.FirstName + ' ' + u.LastName AS TeacherName,
+                        c.RoomNumber,
+                        r.Subject,
+                        r.StartDateTime,
+                        r.EndDateTime,
+                        r.DateRequested,
+                        r.Status
+                    FROM Reservations r
+                    INNER JOIN Users u ON r.TeacherUserId = u.UserId
+                    INNER JOIN Classrooms c ON r.ClassroomId = c.ClassroomId
+                    WHERE r.TeacherUserId = @TeacherUserId
+                    AND (@Status IS NULL OR r.Status = @Status)
+                    ORDER BY r.StartDateTime
+                    """;
+
+        using var command = new SqlCommand(query, connection);
+
+        command.Parameters.AddWithValue("@TeacherUserId", teacherUserId);
+        command.Parameters.AddWithValue("@Status", string.IsNullOrWhiteSpace(status) ? DBNull.Value : status);
+
+        connection.Open();
+
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            reservations.Add(new ReservationView
+            {
+                ReservationId = reader.GetInt32(0),
+                TeacherName = reader.GetString(1),
+                RoomNumber = reader.GetInt32(2),
+                Subject = reader.GetString(3),
+                StartDateTime = reader.GetDateTime(4),
+                EndDateTime = reader.GetDateTime(5),
+                DateRequested = reader.GetDateTime(6),
+                Status = reader.GetString(7)
+            });
+        }
+
+        return reservations;
+    }
+    public List<ReservationView> GetAllReservationsByStatus(string? status)
+    {
+        var reservations = new List<ReservationView>();
+
+        using var connection = new SqlConnection(_connectionString);
+
+        var query = """
+                    SELECT 
+                        r.ReservationId,
+                        u.FirstName + ' ' + u.LastName AS TeacherName,
+                        c.RoomNumber,
+                        r.Subject,
+                        r.StartDateTime,
+                        r.EndDateTime,
+                        r.DateRequested,
+                        r.Status
+                    FROM Reservations r
+                    INNER JOIN Users u ON r.TeacherUserId = u.UserId
+                    INNER JOIN Classrooms c ON r.ClassroomId = c.ClassroomId
+                    WHERE (@Status IS NULL OR r.Status = @Status)
+                    ORDER BY r.StartDateTime
+                    """;
+
+        using var command = new SqlCommand(query, connection);
+
+        command.Parameters.AddWithValue("@Status", string.IsNullOrWhiteSpace(status) ? DBNull.Value : status);
+
+        connection.Open();
+
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            reservations.Add(new ReservationView
+            {
+                ReservationId = reader.GetInt32(0),
+                TeacherName = reader.GetString(1),
+                RoomNumber = reader.GetInt32(2),
+                Subject = reader.GetString(3),
+                StartDateTime = reader.GetDateTime(4),
+                EndDateTime = reader.GetDateTime(5),
+                DateRequested = reader.GetDateTime(6),
+                Status = reader.GetString(7)
+            });
+        }
+
+        return reservations;
     }
 }

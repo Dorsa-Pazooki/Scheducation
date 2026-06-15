@@ -26,8 +26,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/dorsapazoki/RiderProjects/Scheducation/DAL/DAL.csproj": {
-                "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/DAL/DAL.csproj"
+              "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj": {
+                "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj"
               }
             }
           }
@@ -363,6 +363,9 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+              "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj": {
+                "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj"
+              },
               "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj": {
                 "projectPath": "/Users/dorsapazoki/RiderProjects/Scheducation/Domain/Domain.csproj"
               }

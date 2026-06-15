@@ -1,6 +1,6 @@
 using Domain.Entities;
 
-namespace DAL;
+namespace BLL.Interfaces;
 
 public interface IClassroomRepository
 {

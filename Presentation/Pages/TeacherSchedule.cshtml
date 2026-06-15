@@ -1,0 +1,48 @@
+@page
+@model Presentation.Pages.TeacherScheduleModel
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">My Schedule</h1>
+
+        <a href="/Teacher" class="btn btn-outline-secondary">
+            Back to Dashboard
+        </a>
+    </div>
+    <form method="get" class="mb-3">
+        <select name="Status" class="form-control">
+            <option value="">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+
+        <button class="btn btn-primary mt-2">Filter</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Teacher</th>
+            <th>Room</th>
+            <th>Subject</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var reservation in Model.Reservations)
+        {
+            <tr>
+                <td>@reservation.TeacherName</td>
+                <td>@reservation.RoomNumber</td>
+                <td>@reservation.Subject</td>
+                <td>@reservation.StartDateTime</td>
+                <td>@reservation.EndDateTime</td>
+                <td>@reservation.Status</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

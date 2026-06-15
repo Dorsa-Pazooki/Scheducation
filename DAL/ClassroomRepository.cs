@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Microsoft.Data.SqlClient;
+using BLL.Interfaces;
 
 namespace DAL;
 
