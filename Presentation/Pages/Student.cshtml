@@ -1,20 +1,54 @@
 @page
+@model Presentation.Pages.StudentModel
 @{
     ViewData["Title"] = "Student Dashboard";
 }
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
+        
         <div>
             <h1 class="mb-1">Student Dashboard</h1>
-            <p class="text-muted mb-0">Course enrollment view will come next</p>
+            <a href="/StudentSchedul" class="btn btn-outline-primary">My Schedule</a>
         </div>
         <a href="/Index" class="btn btn-outline-secondary">Back</a>
     </div>
+    
 
-    <div class="card shadow-sm rounded-4">
-        <div class="card-body">
-            <p class="mb-0">This page is ready for the next feature: viewing and enrolling in course classes.</p>
+    @if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="alert alert-success">@Model.Message</div>
+    }
+
+    @if (Model.ApprovedReservations.Count == 0)
+    {
+        <div class="alert alert-info">No approved classes available yet.</div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var reservation in Model.ApprovedReservations)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card shadow-sm rounded-4 h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">@reservation.Subject</h4>
+
+                            <p class="mb-1"><strong>Teacher:</strong> @reservation.TeacherName</p>
+                            <p class="mb-1"><strong>Room:</strong> @reservation.RoomNumber</p>
+                            <p class="mb-1"><strong>Start:</strong> @reservation.StartDateTime</p>
+                            <p class="mb-3"><strong>End:</strong> @reservation.EndDateTime</p>
+
+                            <form method="post" asp-page-handler="Enroll">
+                                <input type="hidden" name="reservationId" value="@reservation.ReservationId" />
+                                <button type="submit" class="btn btn-primary">
+                                    Enroll
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+    }
 </div>

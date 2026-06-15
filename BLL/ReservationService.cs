@@ -74,4 +74,8 @@ public class ReservationService
     {
         return _reservationRepository.GetAllReservationsByStatus(status);
     }
+    public List<ReservationView> GetApprovedReservations()
+    {
+        return _reservationRepository.GetAllReservationsByStatus("Approved");
+    }
 }
