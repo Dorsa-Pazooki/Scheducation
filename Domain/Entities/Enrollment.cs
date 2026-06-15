@@ -2,18 +2,23 @@ namespace Domain.Entities;
 
 public class Enrollment
 {
-    public int EnrollmentId { get; set; }
-    public int StudentId { get; set; }
-    public int ClassId { get; set; }
-    public DateTime EnrollmentDate { get; set; }
-    public string Status { get; set; }
-    
-    public Enrollment (int enrollmentId, int studentId, int classId, DateTime enrollmentDate, string status)
-        {
+    public int EnrollmentId { get; private set; }
+    public int StudentUserId { get; private set; }
+    public int ReservationId { get; private set; }
+    public DateTime DateRequested { get; private set; }
+    public string Status { get; private set; }
+
+    public Enrollment(
+        int enrollmentId,
+        int studentUserId,
+        int reservationId,
+        DateTime dateRequested,
+        string status)
+    {
         EnrollmentId = enrollmentId;
-        StudentId = studentId;
-        ClassId = classId;
-        EnrollmentDate = enrollmentDate;
+        StudentUserId = studentUserId;
+        ReservationId = reservationId;
+        DateRequested = dateRequested;
         Status = status;
-        }
+    }
 }
