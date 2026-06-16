@@ -19,11 +19,20 @@ public class StudentScheduleModel : PageModel
         _enrollmentService = enrollmentService;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        var userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Index");
+        }
+
         Enrollments = _enrollmentService.GetStudentEnrollments(
-            studentUserId: 2,
+            studentUserId: userId.Value,
             status: Status
         );
+
+        return Page();
     }
 }

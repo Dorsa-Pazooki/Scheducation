@@ -42,6 +42,7 @@ public class StudentModel : PageModel
 
         Message = "Enrollment request sent.";
         ApprovedReservations = _reservationService.GetApprovedReservations();
+
         return Page();
     }
 }
