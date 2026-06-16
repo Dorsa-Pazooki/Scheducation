@@ -26,14 +26,22 @@ public class StudentModel : PageModel
         ApprovedReservations = _reservationService.GetApprovedReservations();
     }
 
-    public void OnPostEnroll(int reservationId)
+    public IActionResult OnPostEnroll(int reservationId)
     {
+        var userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Index");
+        }
+
         _enrollmentService.EnrollStudent(
-            studentUserId: 2,
+            studentUserId: userId.Value,
             reservationId: reservationId
         );
 
         Message = "Enrollment request sent.";
         ApprovedReservations = _reservationService.GetApprovedReservations();
+        return Page();
     }
 }

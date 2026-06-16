@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages;
 
-public class IndexModel : PageModel
+public class LoginModel : PageModel
 {
     private readonly LoginService _loginService;
 
@@ -16,7 +16,7 @@ public class IndexModel : PageModel
 
     public string ErrorMessage { get; set; } = "";
 
-    public IndexModel(LoginService loginService)
+    public LoginModel(LoginService loginService)
     {
         _loginService = loginService;
     }
@@ -35,6 +35,9 @@ public class IndexModel : PageModel
             return Page();
         }
 
+        HttpContext.Session.SetInt32("UserId", user.UserId);
+        HttpContext.Session.SetString("UserName", user.FirstName + " " + user.LastName);
+
         var role = _loginService.GetUserRole(user.UserId);
 
         HttpContext.Session.SetInt32("UserId", user.UserId);
@@ -42,15 +45,21 @@ public class IndexModel : PageModel
         HttpContext.Session.SetString("Role", role ?? "");
 
         if (role == "Teacher")
+        {
             return RedirectToPage("/Teacher");
+        }
 
         if (role == "Student")
+        {
             return RedirectToPage("/Student");
+        }
 
         if (role == "Admin")
+        {
             return RedirectToPage("/Admin");
+        }
 
-        ErrorMessage = "User role not found.";
+        ErrorMessage = "User role was not found.";
         return Page();
     }
 }

@@ -9,15 +9,20 @@ builder.Services.AddRazorPages();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddScoped<IClassroomRepository>(
-    provider => new ClassroomRepository(connectionString!)
-);
+    provider => new ClassroomRepository(connectionString!));
 
 builder.Services.AddScoped<IReservationRepository>(
-    provider => new ReservationRepository(connectionString!)
-);
+    provider => new ReservationRepository(connectionString!));
+
 builder.Services.AddScoped<IEnrollmentRepository>(
-    provider => new EnrollmentRepository(connectionString!)
-);
+    provider => new EnrollmentRepository(connectionString!));
+
+builder.Services.AddScoped<IUserRepository>(
+    provider => new UserRepository(connectionString!));
+
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddSession();
+
 
 
 builder.Services.AddScoped<EnrollmentService>();
@@ -36,6 +41,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
 app.UseAuthorization();
 app.MapRazorPages();
 app.Run();

@@ -35,40 +35,39 @@ public class TeacherModel : PageModel
         Classrooms = _reservationService.GetAvailableClassrooms();
     }
 
-    public void OnPost()
+    public IActionResult OnPost()
     {
+        var userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Index");
+        }
+
         Classrooms = _reservationService.GetAvailableClassrooms();
 
-        try
-        {
-            var times = SelectedTimeSlot.Split('-');
+        var selectedDate = ReservationDate;
+        var times = SelectedTimeSlot.Split("-");
 
-            var startTime = TimeSpan.Parse(times[0].Trim());
-            var endTime = TimeSpan.Parse(times[1].Trim());
+        var startTime = TimeSpan.Parse(times[0].Trim());
+        var endTime = TimeSpan.Parse(times[1].Trim());
 
-            var startDateTime = ReservationDate.Date.Add(startTime);
-            var endDateTime = ReservationDate.Date.Add(endTime);
+        var startDateTime = selectedDate.Date.Add(startTime);
+        var endDateTime = selectedDate.Date.Add(endTime);
+        
+        _reservationService.CreateReservation(
+            userId: userId.Value,
+            classroomId: ClassroomId,
+            subject: Subject,
+            startDateTime: startDateTime,
+            endDateTime: endDateTime
+        );
 
-            Console.WriteLine($"Date: {ReservationDate}");
-            Console.WriteLine($"Slot: {SelectedTimeSlot}");
-            Console.WriteLine($"Start: {startDateTime}");
-            Console.WriteLine($"End: {endDateTime}");
+        Message = "Reservation created successfully.";
 
-            _reservationService.CreateReservation(
-                userId: 1,
-                classroomId: ClassroomId,
-                subject: Subject,
-                startDateTime: startDateTime,
-                endDateTime: endDateTime
-            );
+        Classrooms = _reservationService.GetAvailableClassrooms();
 
-            Message = "Reservation created successfully.";
-        }
-        catch (Exception ex)
-        {
-            Message = ex.Message;
-            Console.WriteLine($"Error: {ex.Message}");
-        }
+        return Page();
     }
     
 }

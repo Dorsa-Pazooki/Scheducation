@@ -9,12 +9,15 @@ public class User
     
     public List<string> Roles { get; set; }
     
-    public User(int userId, string firstName, string lastName, string email)
+    public string PasswordHash { get; }
+    
+    public User(int userId, string firstName, string lastName, string email, string passwordHash)
         {
         UserId = userId;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
+        PasswordHash = passwordHash;
         }
     
     public void AddRole(string role)

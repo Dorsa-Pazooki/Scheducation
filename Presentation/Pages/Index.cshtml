@@ -1,22 +1,36 @@
 ﻿@page
-@{
-    ViewData["Title"] = "Login";
-}
+@model Presentation.Pages.IndexModel
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow rounded-4">
-                <div class="card-body p-5 text-center">
-                    <h1 class="mb-3">Scheducation</h1>
-                    <p class="text-muted mb-4">Choose a role to continue</p>
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-lg rounded-4 border-0" style="width: 420px;">
+        <div class="card-body p-5">
+            <h2 class="text-center mb-2">Scheducation</h2>
+            <p class="text-muted text-center mb-4">Login to continue</p>
 
-                    <div class="d-grid gap-3">
-                        <a href="/Teacher" class="btn btn-primary btn-lg">Login as Teacher</a>
-                        <a href="/Student" class="btn btn-success btn-lg">Login as Student</a>
-                        <a href="/Admin" class="btn btn-dark btn-lg">Login as Admin</a>
-                    </div>
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">@Model.ErrorMessage</div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
                 </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    Login
+                </button>
+            </form>
+
+            <div class="text-center">
+                <span class="text-muted">Don't have an account?</span>
+                <a href="/Register">Register</a>
             </div>
         </div>
     </div>

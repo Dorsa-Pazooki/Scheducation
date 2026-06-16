@@ -29,6 +29,19 @@ public class AdminModel : PageModel
         Reservations = _reservationService.GetReservationViews();
         EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
     }
+    public void OnPostApprove(int reservationId)
+    {
+        _approvalService.ApproveReservation(reservationId);
+        Reservations = _reservationService.GetReservationViews();
+        EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
+    }
+    
+    public void OnPostReject(int reservationId)
+    {
+        _approvalService.RejectReservation(reservationId);
+        Reservations = _reservationService.GetReservationViews();
+        EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
+    }
 
     public void OnPostApproveEnrollment(int enrollmentId)
     {
@@ -43,10 +56,5 @@ public class AdminModel : PageModel
         Reservations = _reservationService.GetReservationViews();
         EnrollmentRequests = _enrollmentService.GetEnrollmentRequests();
     }
-
-    public void OnPostReject(int reservationId)
-    {
-        _approvalService.RejectReservation(reservationId);
-        Reservations = _reservationService.GetReservationViews();
-    }
+    
 }

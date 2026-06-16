@@ -42,8 +42,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/dorsapazoki/RiderProjects/Scheducation/Presentation/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/dorsapazoki/RiderProjects/Scheducation/Presentation/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dorsapazoki/RiderProjects/Scheducation/Presentation/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dorsapazoki/RiderProjects/Scheducation/Presentation/Pages/SetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2V0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dorsapazoki/RiderProjects/Scheducation/Presentation/Pages/Shared/_ValidationScriptsPartial.cshtml]

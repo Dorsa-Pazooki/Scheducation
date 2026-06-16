@@ -19,8 +19,17 @@ public class TeacherScheduleModel : PageModel
         _reservationService = reservationService;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
-        Reservations = _reservationService.GetTeacherReservations(1, Status);
+        var userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Index");
+        }
+
+        Reservations = _reservationService.GetTeacherReservations(userId.Value, Status);
+
+        return Page();
     }
 }

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ddLFxDhumuQ=",
+  "dgSpecHash": "TKfuB1KKORE=",
   "success": true,
   "projectFilePath": "/Users/dorsapazoki/RiderProjects/Scheducation/BLL/BLL.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/dorsapazoki/.nuget/packages/bcrypt.net-next/4.2.0/bcrypt.net-next.4.2.0.nupkg.sha512"
+  ],
   "logs": []
 }
